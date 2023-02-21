@@ -22,15 +22,13 @@ output:
 
 # **Introduction**
 
-I will update the PAI analysis every week on this GitHub webpage.
+I will update the neighborhood crime dashboard every week on this GitHub webpage.
 
 
 
 ## Notes
 
-1. The PAI analysis for every week since 08/01/2022 is available on this webpage.
-
-2. The purple number on top of the dashed purple line in every plot indicates the percentage change in total PAI since the week before.
+1. The neighborhood crime dashboard first version was implemented on 02/20/2023.
 
 
 </div>

@@ -13,3 +13,6 @@ doParallel
 R.methodsS3
 R.oo
 R.utils
+reactable
+htmltools
+rio
