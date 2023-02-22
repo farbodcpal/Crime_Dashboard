@@ -15,5 +15,7 @@ navbar:
     - text: "Analysis Part 3"
       href: Analysis-V3.html 
     - text: "Analysis Part 4"
-      href: Analysis-V4.html      
+      href: Analysis-V4.html
+    - text: "Analysis Part 5"
+      href: Analysis-V5.html 
 output: distill::distill_article

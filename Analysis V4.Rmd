@@ -16,8 +16,80 @@ library(doParallel)
 library(R.utils)
 library(reactable)
 library(rio)
+library(sf)
 library(htmltools)
 options(digits = 7)
 registerDoParallel()
 getDoParWorkers()
 ```
+
+# All crime incidents frequency per month in the top 5 neighborhoods with the most crimes comparison of 2022 vs the last 3 years
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
+libDB <- "D:/SMU/Ph.D/CPAL/"
+masterODP_CPAL <- import("D:/SMU/Ph.D/CPAL/Open Data Portal Incidents/Data/Incidents/Processed Data/Dallas Police Incidents - All Incidents Since Aug 2019.csv") 
+
+neighborhood <- st_read(paste0(libDB, "New Model Development/Geopackage/Neighborhoods.gpkg"), layer = "bc_neighborhoods") %>%
+  st_transform(crs = 2276)
+
+# Convert dataframe into sf geographic files with 4202 projection
+masterODP_CPAL_sf <- st_as_sf(x = masterODP_CPAL, coords = c(x = "x_coordinate", y = "y_coordinate"), crs = 2276)
+
+masterODP_CPAL_sf <- masterODP_CPAL_sf[neighborhood,]
+
+neinames <- c("Oak Lawn", "Uptown", "Pleasant Grove", "Bachman", "Vickery Meadow(s)")
+
+for (i in neinames){
+  neighborhood_subset <- neighborhood %>% dplyr::filter(NeighName == i)
+  masterODP_CPAL_sf_subset <- masterODP_CPAL_sf[neighborhood_subset,]
+  
+  a <- ((table(masterODP_CPAL_sf_subset$Year, masterODP_CPAL_sf_subset$Month)))
+  b <- data.frame(colMeans(a[2:4,])) %>% mutate(Var1 = "Average", Var2 = c(1:12)) %>% rename(Freq = colMeans.a.2.4.... ) %>% relocate(Var1, .before = Freq) %>% relocate(Var2, .before = Freq)
+  a <- data.frame(a) %>% dplyr::filter(Var1 != 2019)
+  a <- rbind(a,b)
+  a$Freq[a$Freq == 0] <- NA
+  
+  data1 <- a %>% dplyr::filter(Var1 == "Average")
+  data2 <- a %>% dplyr::filter(Var1 == 2022)
+
+  p <- ggplot(NULL, aes(Var2, Freq)) + 
+    geom_line(data = data1, aes(color='Last 3 Years', group=1)) +
+    geom_line(data = data2, aes(color='2022', group=1)) + ylab("Frequency") + xlab("Month") + 
+    ggtitle(paste( "All Crime Incidents per Month at", i)) + 
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 9)) +
+    scale_color_manual(name='Legend',
+                       breaks=c('Last 3 Years', '2022'),
+                       values=c('Last 3 Years'='red', '2022'='blue')) + theme(
+                         legend.position = c(0.02, .95),
+                         legend.justification = c("left", "top"),
+                         legend.box.just = "left",
+                         legend.margin = margin(6, 6, 6, 6)
+                       )
+  print(p)
+}
+```
+# Crime (group A) frequency by top 5 category in the top 5 neighborhoods with the most crimes
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
+nibrs_crime_category_nh <- import(paste0(libDB, "New Model Development/Neighborhood Crime Dashboard/nibrs_crime_category_nh.csv"))
+
+nibrs_crime_category_nh <- nibrs_crime_category_nh %>% dplyr:: select("NIRBRS Crime Category",grep("Frequency at", names(nibrs_crime_category_nh))) 
+
+names(nibrs_crime_category_nh) <- gsub("Frequency at ", "", names(nibrs_crime_category_nh)) 
+
+nibrs_crime_category_nh <- nibrs_crime_category_nh %>%
+  select("NIRBRS Crime Category", where(~ is.numeric(.) && sum(.) >= 1100))
+
+for (i in names(nibrs_crime_category_nh[2:length(nibrs_crime_category_nh)])){
+
+  nibrs_crime_nh_month_viz <- nibrs_crime_category_nh %>% dplyr::select("NIRBRS Crime Category", i) %>% 
+    arrange(desc(nibrs_crime_category_nh[[i]])) %>% slice(1:5)
+  print(nibrs_crime_nh_month_viz)
+  #write.xlsx(nibrs_crime_nh_month_viz, file = "Neighboorhood_Results.xlsx",
+             #sheetName = i,append=TRUE, row.names=F)
+}
+```
+
+
+
+

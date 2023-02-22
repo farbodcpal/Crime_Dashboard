@@ -90,7 +90,7 @@ table_out <- reactable(
 withtitle
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
 nibrs_crime_nh_viz <- nibrs_crime_category_nh %>% dplyr::select("NIRBRS Crime Category", `Frequency at Vickery Meadow(s)`) %>% 
   arrange(desc(`Frequency at Vickery Meadow(s)`)) %>% slice(1:5)
 
