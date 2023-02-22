@@ -1,0 +1,102 @@
+---
+title: 'Analysis Part 3'
+output:
+  distill::distill_article:
+    toc:false:
+      theme: theme.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+```
+
+```{r include = FALSE}
+library(tidyverse)
+library(doParallel)
+library(R.utils)
+library(reactable)
+library(rio)
+library(htmltools)
+options(digits = 7)
+registerDoParallel()
+getDoParWorkers()
+```
+
+
+# All crime incidents comparison between 2022 and the last three years
+```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
+masterODP_CPAL <- import("D:/SMU/Ph.D/CPAL/Open Data Portal Incidents/Data/Incidents/Processed Data/Dallas Police Incidents - All Incidents Since Aug 2019.csv") 
+
+a <- ((table(masterODP_CPAL$Year, masterODP_CPAL$Month)))
+b <- data.frame(colMeans(a)) %>% mutate(Var1 = "Average", Var2 = c(1:12)) %>% rename(Freq = colMeans.a. ) %>% 
+  relocate(Var1, .before = Freq) %>% relocate(Var2, .before = Freq)
+a <- data.frame(a) %>% dplyr::filter(Var1 != 2019)
+a <- rbind(a,b)
+a$Freq[a$Var1 == 2022 & a$Var2 == 12] <- NA
+
+data1 <- a %>% dplyr::filter(Var1 == "Average")
+data2 <- a %>% dplyr::filter(Var1 == 2022)
+ggplot(NULL, aes(Var2, Freq)) + 
+  geom_line(data = data1, aes(color='Last 3 Years', group=1)) +
+  geom_line(data = data2, aes(color='2022', group=1)) + ylab("Frequency") + xlab("Month") + 
+  ggtitle(paste( "All Crime Incidents per Month")) + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 9)) +
+  scale_color_manual(name='Legend',
+                     breaks=c('Last 3 Years', '2022'),
+                     values=c('Last 3 Years'='red', '2022'='blue')) + theme(
+                       legend.position = c(0.02, .95),
+                       legend.justification = c("left", "top"),
+                       legend.box.just = "left",
+                       legend.margin = margin(6, 6, 6, 6)
+                     )
+```
+
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
+libDB <- "D:/SMU/Ph.D/CPAL/"
+nibrs_crime_category_nh <- import(paste0(libDB, "New Model Development/Neighborhood Crime Dashboard/nibrs_crime_category_nh.csv"))
+
+nibrs_crime_category_nh <- nibrs_crime_category_nh %>% dplyr:: select("NIRBRS Crime Category",grep("Frequency at", names(nibrs_crime_category_nh))) 
+
+nibrs_crime_category_nh <- nibrs_crime_category_nh %>%
+  select("NIRBRS Crime Category", where(~ is.numeric(.) && sum(.) >= 1100))
+#nibrs_crime_category_nh <- data.frame(nibrs_crime_category_nh)
+
+a <- colSums(Filter(is.numeric, nibrs_crime_category_nh))
+a <- c("Total Count", a)
+nibrs_crime_category_nh[21,] <- a
+
+table_out <- reactable(
+    nibrs_crime_category_nh,
+    defaultColDef = colDef(
+      header = function(value) gsub(".", " ", value, fixed = TRUE),
+      cell = function(value) format(value, nsmall = 1),
+      align = "center",
+      minWidth = 200,
+      headerStyle = list(background = "#f7f7f8")
+    ),
+    columns = list(
+      Species = colDef(minWidth = 200)  # overrides the default
+    ),
+    bordered = TRUE,
+    highlight = TRUE,
+    filterable = TRUE,
+    searchable = TRUE
+  )
+  
+  withtitle <- htmlwidgets::prependContent(table_out, 
+                                           h2(class = "title", paste("Crime (group A) frequency by category in the top 5 neighborhoods with the most crimes")),
+                                           font=list(size=5))
+withtitle
+```
+
+```{r}
+nibrs_crime_nh_viz <- nibrs_crime_category_nh %>% dplyr::select("NIRBRS Crime Category", `Frequency at Vickery Meadow(s)`) %>% 
+  arrange(desc(`Frequency at Vickery Meadow(s)`)) %>% slice(1:5)
+
+ggplot(nibrs_crime_nh_viz, aes(x=`NIRBRS Crime Category`, y=`Frequency at Vickery Meadow(s)`)) +
+  geom_bar(stat = "identity") + theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8)) +
+  geom_text(aes(label = `Frequency at Vickery Meadow(s)`), vjust = 1.5, colour = "white") + 
+  ggtitle("Crime Frequency at Vickery Meadow(s)") + ylab("Frequency")
+```
+

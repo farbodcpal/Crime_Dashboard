@@ -1,0 +1,23 @@
+---
+title: 'Analysis Part 4'
+output:
+  distill::distill_article:
+    toc:false:
+      theme: theme.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+```
+
+```{r include = FALSE}
+library(tidyverse)
+library(doParallel)
+library(R.utils)
+library(reactable)
+library(rio)
+library(htmltools)
+options(digits = 7)
+registerDoParallel()
+getDoParWorkers()
+```
