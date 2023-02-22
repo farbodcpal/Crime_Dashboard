@@ -1,5 +1,5 @@
 ---
-title: 'Analysis'
+title: 'Analysis Part 1'
 output:
   distill::distill_article:
     toc:false:
@@ -23,7 +23,6 @@ registerDoParallel()
 getDoParWorkers()
 ```
 
-### Crime (group A) frequency by type in each neighborhood
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
 c_nh <- import("data/nibrs_crime_nh.csv")
@@ -51,7 +50,6 @@ table_out <- reactable(
 withtitle
 ```
 
-### Crime (group A) frequency by category in each neighborhood
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
 c_nh <- import("data/nibrs_crime_category_nh.csv")
@@ -78,7 +76,6 @@ table_out <- reactable(
 withtitle
 ```
 
-### Crime (group A) frequency by type in each zipcode
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
 c_zip <- import("data/nibrs_crime_zip.csv")
@@ -105,7 +102,6 @@ table_out <- reactable(
 withtitle
 ```
 
-### Crime (group A) frequency by category in each zipcode
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
 c_zip <- import("data/nibrs_crime_category_zip.csv")
@@ -132,11 +128,3 @@ table_out <- reactable(
 withtitle
 ```
 
-
-# Data
-
-The weekly PAI data is available at [https://github.com/farbodcpal/PAI_analysis/tree/main/data](https://github.com/farbodcpal/PAI_analysis/tree/main/data)
-
-# Predictive Accuracy Index 
-
-Below, the PAI of each division is visualized over time since 08/01/2022
