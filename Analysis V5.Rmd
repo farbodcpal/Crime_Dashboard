@@ -25,7 +25,7 @@ registerDoParallel()
 getDoParWorkers()
 ```
 
-```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
+```{r include=FALSE}
 libDB <- "D:/SMU/Ph.D/CPAL/"
 masterODP_CPAL <- import("D:/SMU/Ph.D/CPAL/Open Data Portal Incidents/Data/Incidents/Processed Data/Dallas Police Incidents - All Incidents Since Aug 2019.csv") 
 arrests <- import("D:/SMU/Ph.D/CPAL/Open Data Portal Incidents/Data/Incidents/Processed Data/Dallas Police Arrests - All Arrests.csv") %>% 
@@ -73,7 +73,7 @@ crime_neighbor <- crime_neighbor[neighborhood,]
 
 #neinames <- c("Oak Lawn", "Uptown", "Pleasant Grove", "Bachman", "Vickery Meadow(s)")
 
-dash_func <- function(neighbor_name){
+p_func <- function(neighbor_name){
   
   neighborhood_subset <- neighborhood %>% dplyr::filter(NeighName == neighbor_name)
   crime_neighbor_subset <- crime_neighbor[neighborhood_subset,]
@@ -106,31 +106,15 @@ dash_func <- function(neighbor_name){
                          legend.margin = margin(6, 6, 6, 6)
                        )  +  annotate(geom="text", x=max(as.numeric(data2$Var2)), y=max(as.numeric(data2$Freq), na.rm = T) +4, label=paste(crime_per_month, "Crime Per Month in 2022"),color="red", size = 3, hjust=1) + 
                              annotate(geom="text", x=max(as.numeric(data2$Var2)), y=max(as.numeric(data2$Freq), na.rm = T) +16, label=paste(crime_per_week, "Crime Per Week in 2022"),color="red", size = 3, hjust=1)
-  #print(p)
+
+  return(p)
+}
   
-  table_crime <- crime_neighbor_subset %>% dplyr::filter(Year != 2019)
-  top_incidents_tab <- data.frame(table(table_crime$nibrs_crime_category))
-  top_incidents_tab <- top_incidents_tab  %>% arrange(desc(`Freq`)) %>% slice(1:5) %>% rename(`Crime Type` = Var1, "Frequency" = Freq )
-  table_out <- reactable(
-    top_incidents_tab,
-    defaultColDef = colDef(
-      header = function(value) gsub(".", " ", value, fixed = TRUE),
-      cell = function(value) format(value, nsmall = 1),
-      align = "center",
-      minWidth = 100,
-      headerStyle = list(background = "#f7f7f8")
-    ),
-    columns = list(
-      Species = colDef(minWidth = 200)  # overrides the default
-    ),
-    bordered = TRUE,
-    highlight = TRUE,
-    filterable = TRUE,
-    searchable = TRUE
-  )
+p2_func <- function(neighbor_name){
   
-  withtitle <- htmlwidgets::prependContent(table_out, 
-              h2(class = "title", paste("Top 10 Crime Types In the Last Three Years at", neighbor_name)))
+  neighborhood_subset <- neighborhood %>% dplyr::filter(NeighName == neighbor_name)
+  crime_neighbor_subset <- crime_neighbor[neighborhood_subset,]
+  
   
   arrests <- crime_neighbor_subset %>% drop_na(arrestnumber)
   month_tbl <- arrests %>%
@@ -157,11 +141,41 @@ dash_func <- function(neighbor_name){
       y = "",
       color = 'VARIABLE'
     )
-  #print(p2)
-  
-  return(list(withtitle, p, p2))
+  return(p2)
 }
+
+
+tbl_func <- function(neighbor_name){
   
+  neighborhood_subset <- neighborhood %>% dplyr::filter(NeighName == neighbor_name)
+  crime_neighbor_subset <- crime_neighbor[neighborhood_subset,]
+  
+  table_crime <- crime_neighbor_subset %>% dplyr::filter(Year != 2019)
+  top_incidents_tab <- data.frame(table(table_crime$nibrs_crime_category))
+  top_incidents_tab <- top_incidents_tab  %>% arrange(desc(`Freq`)) %>% slice(1:5) %>% rename(`Crime Type` = Var1, "Frequency" = Freq )
+  table_out <- reactable(
+    top_incidents_tab,
+    defaultColDef = colDef(
+      header = function(value) gsub(".", " ", value, fixed = TRUE),
+      cell = function(value) format(value, nsmall = 1),
+      align = "center",
+      minWidth = 100,
+      headerStyle = list(background = "#f7f7f8")
+    ),
+    columns = list(
+      Species = colDef(minWidth = 200)  # overrides the default
+    ),
+    bordered = TRUE,
+    highlight = TRUE,
+    filterable = TRUE,
+    searchable = TRUE
+  )
+  
+  withtitle <- htmlwidgets::prependContent(table_out, 
+              h2(class = "title", paste("Top 10 Crime Types In the Last Three Years at", neighbor_name)))
+  
+  return(withtitle)
+}
 ```
 
 ## Top 10 Crime Types In the Last Three Years, All Crime Incidents per Month, and Arrests by Month in the top 5 neighborhood with the most crimes
@@ -169,31 +183,41 @@ dash_func <- function(neighbor_name){
 ### Oak Lawn
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
-dash_func("Oak Lawn")
+p_func("Oak Lawn")
+p2_func("Oak Lawn")
+tbl_func("Oak Lawn")
 ```
 
 ### Uptown
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
-dash_func("Oak Lawn")
+p_func("Uptown")
+p2_func("Uptown")
+tbl_func("Uptown")
 ```
-
+"", "Bachman", "Vickery Meadow(s)"
 ### Pleasant Grove
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
-dash_func("Oak Lawn")
+p_func("Pleasant Grove")
+p2_func("Pleasant Grove")
+tbl_func("Pleasant Grove")
 ```
 
 ### Bachman
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
-dash_func("Oak Lawn")
+p_func("Bachman")
+p2_func("Bachman")
+tbl_func("Bachman")
 ```
 
 ### Vickery Meadow(s)
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE, fig.width=10,fig.height=5, layout="l-body-outset"}
-dash_func("Oak Lawn")
+p_func("Vickery Meadow(s)")
+p2_func("Vickery Meadow(s)")
+tbl_func("Vickery Meadow(s)")
 ```
 
 

@@ -2389,6 +2389,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }</style>
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+  <script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+  <script src="site_libs/react-17.0.0/react.min.js"></script>
+  <script src="site_libs/react-17.0.0/react-dom.min.js"></script>
+  <script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
+  <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+  <link href="site_libs/reactable-0.3.0.9000/reactable.css" rel="stylesheet" />
+  <script src="site_libs/reactable-binding-0.3.0.9000/reactable.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2442,66 +2449,44 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <div class="d-article">
-<div class="layout-chunk" data-layout="l-body-outset">
-<pre><code>Reading layer `bc_neighborhoods&#39; from data source `D:\SMU\Ph.D\CPAL\New Model Development\GeoPackage\Neighborhoods.gpkg&#39; using driver `GPKG&#39;
-Simple feature collection with 375 features and 50 fields
-geometry type:  MULTIPOLYGON
-dimension:      XY
-bbox:           xmin: 2436410 ymin: 6912088 xmax: 2566805 ymax: 7053457
-projected CRS:  NAD83(2011) / Texas North Central (ftUS)</code></pre>
-</div>
 <h2 id="top-10-crime-types-in-the-last-three-years-all-crime-incidents-per-month-and-arrests-by-month-in-the-top-5-neighborhood-with-the-most-crimes">Top 10 Crime Types In the Last Three Years, All Crime Incidents per Month, and Arrests by Month in the top 5 neighborhood with the most crimes</h2>
 <h3 id="oak-lawn">Oak Lawn</h3>
 <div class="layout-chunk" data-layout="l-body-outset">
-<pre><code>[[1]]
-
-[[2]]</code></pre>
-<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-3-1.png" width="960" /></p>
-<pre><code>
-[[3]]</code></pre>
-<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-3-2.png" width="960" /></p>
+<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-3-1.png" width="960" /><img src="Analysis-V5_files/figure-html5/unnamed-chunk-3-2.png" width="960" /></p>
+<h2 class="title">Top 10 Crime Types In the Last Three Years at Oak Lawn</h2>
+<div id="htmlwidget-72c11db7cea418b4ac38" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-72c11db7cea418b4ac38">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Crime Type":["LARCENY/ THEFT OFFENSES","MISCELLANEOUS","MOTOR VEHICLE THEFT","DESTRUCTION/ DAMAGE/ VANDALISM OF PROPERTY","BURGLARY/ BREAKING & ENTERING"],"Frequency":[6016,3695,1696,1236,1145]},"columns":[{"id":"Crime Type","name":"Crime Type","type":"factor","cell":["LARCENY/ THEFT OFFENSES","MISCELLANEOUS","MOTOR VEHICLE THEFT","DESTRUCTION/ DAMAGE/ VANDALISM OF PROPERTY","BURGLARY/ BREAKING & ENTERING"],"header":"Crime Type","minWidth":100,"align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"Frequency","name":"Frequency","type":"numeric","cell":["6016","3695","1696","1236","1145"],"header":"Frequency","minWidth":100,"align":"center","headerStyle":{"background":"#f7f7f8"}}],"filterable":true,"searchable":true,"highlight":true,"bordered":true,"dataKey":"6c93db089e30d210b05d0e995e771382","static":false},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 <h3 id="uptown">Uptown</h3>
 <div class="layout-chunk" data-layout="l-body-outset">
-<pre><code>[[1]]
-
-[[2]]</code></pre>
-<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-4-1.png" width="960" /></p>
-<pre><code>
-[[3]]</code></pre>
-<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-4-2.png" width="960" /></p>
+<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-4-1.png" width="960" /><img src="Analysis-V5_files/figure-html5/unnamed-chunk-4-2.png" width="960" /></p>
+<h2 class="title">Top 10 Crime Types In the Last Three Years at Uptown</h2>
+<div id="htmlwidget-49eacd4e5ca0672e712a" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-49eacd4e5ca0672e712a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Crime Type":["LARCENY/ THEFT OFFENSES","MISCELLANEOUS","MOTOR VEHICLE THEFT","DESTRUCTION/ DAMAGE/ VANDALISM OF PROPERTY","PUBLIC INTOXICATION"],"Frequency":[2294,1125,492,336,290]},"columns":[{"id":"Crime Type","name":"Crime Type","type":"factor","cell":["LARCENY/ THEFT OFFENSES","MISCELLANEOUS","MOTOR VEHICLE THEFT","DESTRUCTION/ DAMAGE/ VANDALISM OF PROPERTY","PUBLIC INTOXICATION"],"header":"Crime Type","minWidth":100,"align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"Frequency","name":"Frequency","type":"numeric","cell":["2294","1125","492","336","290"],"header":"Frequency","minWidth":100,"align":"center","headerStyle":{"background":"#f7f7f8"}}],"filterable":true,"searchable":true,"highlight":true,"bordered":true,"dataKey":"190b4ecb31413edf81117739a6a96ee9","static":false},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
-<h3 id="pleasant-grove">Pleasant Grove</h3>
+<p>““,”Bachman”, “Vickery Meadow(s)”
+### Pleasant Grove</p>
 <div class="layout-chunk" data-layout="l-body-outset">
-<pre><code>[[1]]
-
-[[2]]</code></pre>
-<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-5-1.png" width="960" /></p>
-<pre><code>
-[[3]]</code></pre>
-<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-5-2.png" width="960" /></p>
+<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-5-1.png" width="960" /><img src="Analysis-V5_files/figure-html5/unnamed-chunk-5-2.png" width="960" /></p>
+<h2 class="title">Top 10 Crime Types In the Last Three Years at Pleasant Grove</h2>
+<div id="htmlwidget-a073647841abeb83eb8d" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-a073647841abeb83eb8d">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Crime Type":["MISCELLANEOUS","LARCENY/ THEFT OFFENSES","MOTOR VEHICLE THEFT","ASSAULT OFFENSES","DESTRUCTION/ DAMAGE/ VANDALISM OF PROPERTY"],"Frequency":[2595,1448,1060,750,742]},"columns":[{"id":"Crime Type","name":"Crime Type","type":"factor","cell":["MISCELLANEOUS","LARCENY/ THEFT OFFENSES","MOTOR VEHICLE THEFT","ASSAULT OFFENSES","DESTRUCTION/ DAMAGE/ VANDALISM OF PROPERTY"],"header":"Crime Type","minWidth":100,"align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"Frequency","name":"Frequency","type":"numeric","cell":["2595","1448","1060","750","742"],"header":"Frequency","minWidth":100,"align":"center","headerStyle":{"background":"#f7f7f8"}}],"filterable":true,"searchable":true,"highlight":true,"bordered":true,"dataKey":"dac50e2f2c548dd54aac65c3c7667176","static":false},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 <h3 id="bachman">Bachman</h3>
 <div class="layout-chunk" data-layout="l-body-outset">
-<pre><code>[[1]]
-
-[[2]]</code></pre>
-<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-6-1.png" width="960" /></p>
-<pre><code>
-[[3]]</code></pre>
-<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-6-2.png" width="960" /></p>
+<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-6-1.png" width="960" /><img src="Analysis-V5_files/figure-html5/unnamed-chunk-6-2.png" width="960" /></p>
+<h2 class="title">Top 10 Crime Types In the Last Three Years at Bachman</h2>
+<div id="htmlwidget-84e2b827d354120c20d4" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-84e2b827d354120c20d4">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Crime Type":["MISCELLANEOUS","LARCENY/ THEFT OFFENSES","MOTOR VEHICLE THEFT","BURGLARY/ BREAKING & ENTERING","DESTRUCTION/ DAMAGE/ VANDALISM OF PROPERTY"],"Frequency":[2300,1775,1114,890,820]},"columns":[{"id":"Crime Type","name":"Crime Type","type":"factor","cell":["MISCELLANEOUS","LARCENY/ THEFT OFFENSES","MOTOR VEHICLE THEFT","BURGLARY/ BREAKING & ENTERING","DESTRUCTION/ DAMAGE/ VANDALISM OF PROPERTY"],"header":"Crime Type","minWidth":100,"align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"Frequency","name":"Frequency","type":"numeric","cell":["2300","1775","1114","890","820"],"header":"Frequency","minWidth":100,"align":"center","headerStyle":{"background":"#f7f7f8"}}],"filterable":true,"searchable":true,"highlight":true,"bordered":true,"dataKey":"def1b25ae50d0f6b7729aa2f0e289be9","static":false},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 <h3 id="vickery-meadows">Vickery Meadow(s)</h3>
 <div class="layout-chunk" data-layout="l-body-outset">
-<pre><code>[[1]]
-
-[[2]]</code></pre>
-<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-7-1.png" width="960" /></p>
-<pre><code>
-[[3]]</code></pre>
-<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-7-2.png" width="960" /></p>
+<p><img src="Analysis-V5_files/figure-html5/unnamed-chunk-7-1.png" width="960" /><img src="Analysis-V5_files/figure-html5/unnamed-chunk-7-2.png" width="960" /></p>
+<h2 class="title">Top 10 Crime Types In the Last Three Years at Vickery Meadow(s)</h2>
+<div id="htmlwidget-524a08f467eddbadfe62" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-524a08f467eddbadfe62">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Crime Type":["LARCENY/ THEFT OFFENSES","MISCELLANEOUS","MOTOR VEHICLE THEFT","DESTRUCTION/ DAMAGE/ VANDALISM OF PROPERTY","ASSAULT OFFENSES"],"Frequency":[1971,1493,745,687,461]},"columns":[{"id":"Crime Type","name":"Crime Type","type":"factor","cell":["LARCENY/ THEFT OFFENSES","MISCELLANEOUS","MOTOR VEHICLE THEFT","DESTRUCTION/ DAMAGE/ VANDALISM OF PROPERTY","ASSAULT OFFENSES"],"header":"Crime Type","minWidth":100,"align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"Frequency","name":"Frequency","type":"numeric","cell":["1971","1493","745","687","461"],"header":"Frequency","minWidth":100,"align":"center","headerStyle":{"background":"#f7f7f8"}}],"filterable":true,"searchable":true,"highlight":true,"bordered":true,"dataKey":"1414e0741ba972e72c8e9c93b77d9036","static":false},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
